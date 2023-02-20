@@ -79,10 +79,10 @@ class Home extends Component {
     componentWillMount() {       
         let data = null;
         let xhr = new XMLHttpRequest();
-        let state = this;
+        let stage = this;
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                state.setState({
+                stage.setState({
                     upcomingMovies: JSON.parse(this.responseText).movies
                 });
             }
@@ -96,7 +96,7 @@ class Home extends Component {
         let releasedxhr = new XMLHttpRequest();
         releasedxhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                state.setState({
+                stage.setState({
                     releasedMovies: JSON.parse(this.responseText).movies
                 });
             }
@@ -114,7 +114,7 @@ class Home extends Component {
 
         xhrGenres.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                state.setState({
+                stage.setState({
                     genresList: JSON.parse(this.responseText).genres
                 });
             }
@@ -129,7 +129,7 @@ class Home extends Component {
         let xhrArtists = new XMLHttpRequest();
         xhrArtists.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                state.setState({
+                stage.setState({
                     artistsList: JSON.parse(this.responseText).artists
                 });
             }
@@ -183,12 +183,14 @@ class Home extends Component {
             qrString += "&end_date=" + this.state.releaseDateEnd;
         }
 
-        let state = this;
+        let stage = this;
+
         let filteredData = null;
         let xhrFilter = new XMLHttpRequest();
         xhrFilter.addEventListener("readystatechange", function () {
+
             if (this.readyState === 4) {
-                state.setState({
+                stage.setState({
                     releasedMovies: JSON.parse(this.responseText).movies
                 });
             }
@@ -210,6 +212,7 @@ class Home extends Component {
                 </div>
 
                 <GridList cols={5} className={classes.gridListUpcomingMovies} >
+                    
                     {this.state.upcomingMovies.map(movie => (
                         <GridListTile key={"upcoming" + movie.id}>
                             <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
